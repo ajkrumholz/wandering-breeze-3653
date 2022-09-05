@@ -28,5 +28,10 @@ RSpec.describe 'project show page' do
       expect(page).to_not have_content(@boardfit.name)
       expect(page).to_not have_content(@boardfit.material)
     end
+
+    it 'displays the challenge theme' do
+      expect(page).to have_content(@recycled_material_challenge.theme)
+      expect(page).to_not have_content(@furniture_challenge.theme)
+    end
   end
 end

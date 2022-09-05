@@ -2,13 +2,14 @@
 
 <ul>
   <% @contestants.each do |contestant| %>
-    <li id="contestant-<%= contestant.id %>">
+    <p><li id="contestant-<%= contestant.id %>">
       <%= contestant.name %>
+      <p>Projects:</p>
       <ul>
       <% contestant.projects.each do |project| %>
           <li><%= project.name %></li>
       <% end %>
       </ul>
-    </li>
+    </li></p>
   <% end %>
 </ul>

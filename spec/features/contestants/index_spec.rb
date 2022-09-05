@@ -53,6 +53,7 @@ RSpec.describe 'contestant index' do
           end
         end
       end
+    save_and_open_page
     end
   end
 end

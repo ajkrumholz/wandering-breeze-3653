@@ -65,5 +65,39 @@ RSpec.describe 'project show page' do
 
       expect(page).to have_content("Average Contestant Experience: 10.0 years")
     end
+
+    it 'has a form to add a contestant to the project' do
+      visit "/projects/#{@news_chic.id}"
+
+      expect(page).to have_field("Name")
+      expect(page).to have_field("Age")
+      expect(page).to have_field("Hometown")
+      expect(page).to have_field("Years of Experience")
+    end
+
+    describe 'when the form is filled out and submitted' do
+      before :each do
+        visit "/projects/#{@boardfit.id}"
+
+        fill_in("Name", with: "T Rex")
+        fill_in("Age", with: "42")
+        fill_in("Hometown", with: "Perth")
+        fill_in("Years of Experience", with: "22")
+        click_on("Add Contestant to Project")
+      end
+
+      it 'updates the information on the project show page' do
+        expect(current_path).to eq("/projects/#{@boardfit.id}")
+        expect(page).to have_content("Number of Contestants: 3")
+      end
+
+      it 'also updates the contestants index page' do
+        visit "/contestants"
+        contestant = Contestant.last
+        within "#contestant-#{contestant.id}" do
+          expect(page).to have_content(@boardfit.name)
+        end
+      end
+    end
   end
 end
